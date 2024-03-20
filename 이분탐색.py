@@ -1,5 +1,6 @@
 list_ = [1, 10, 33, 18, 22, 90, 111, 9999, 837]
 
+
 def binary_search(arr, start, end, target):
     if start > end:
         return None

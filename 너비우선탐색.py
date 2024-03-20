@@ -1,23 +1,4 @@
 from collections import deque
-
-
-def bfs(graph, start_node):
-    visited = set()  # 방문한 노드를 기록하기 위한 집합
-    queue = deque([start_node])  # 시작 노드를 큐에 삽입
-
-    while queue:  # 큐가 빌 때까지 반복
-        current_node = queue.popleft()  # 큐에서 노드를 하나 꺼냄
-        if current_node not in visited:  # 현재 노드를 방문하지 않았다면
-            visited.add(current_node)  # 현재 노드를 방문했다고 표시
-            print(current_node, end=" ")  # 현재 노드를 출력(탐색 순서 확인용)
-
-            # 현재 노드에 연결된 모든 인접 노드를 큐에 삽입
-            for neighbor in graph[current_node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)
-
-
-# 간단한 그래프 예시
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D', 'E'],
@@ -26,6 +7,42 @@ graph = {
     'E': ['B', 'F'],
     'F': ['C', 'E']
 }
+"""
+큐에 시작 노드를 넣는다.
+큐가 있는 동안
+노드가 방문한 적 없다면
+노드를 출력하고 방문 목록에 노드를 담는다.
+그래프[노드]를 순회하며 인접 리스트들을 확인한다
+인접 리스트가 방문 목록에 없으면
+큐에 인접 목록을 추가한다
+"""
 
-# 'A' 노드부터 BFS 실행
-bfs(graph, 'A')
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            print(node)
+            visited.add(node)
+            for neighbour in graph[node]:
+                if neighbour not in visited:
+                    queue.append(neighbour)
+
+bfs(graph, "A")
+# def bfs(graph, start):
+#     visited = set()
+#     queue = deque([start])
+#
+#     while queue:
+#         node = queue.popleft()  # 큐의 왼쪽 끝에서 요소를 제거하고 반환
+#         if node not in visited:
+#             print(node, end=' ')
+#             visited.add(node)
+#             for neighbour in graph[node]:
+#                 if neighbour not in visited:
+#                     queue.append(neighbour)
+#
+#
+# # 사용 예
+# bfs(graph, 'A')

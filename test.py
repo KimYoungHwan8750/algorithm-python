@@ -5,6 +5,8 @@
 그래프에서 노드의 인접리스트를 순회하고
 인접한 항목에 대해 깊이 우선 탐색 실시
 """
+from collections import deque
+
 graph = {
     'A': ['B', 'C'],
     'B': ['A', 'D', 'E'],
@@ -13,13 +15,28 @@ graph = {
     'E': ['B', 'F'],
     'F': ['C', 'E']
 }
-visited = set()
+visited_dfs = set()
+visited_bfs = set()
 
 def dfs(graph, node):
-    if node not in visited:
+    if node not in visited_dfs:
         print(node)
-        visited.add(node)
+        visited_dfs.add(node)
         for neighbour in graph[node]:
             dfs(graph, neighbour)
 
 dfs(graph, "A")
+
+print("-------------")
+
+def bfs(graph, start):
+    queue = deque([start])
+    while queue:
+        node = queue.popleft()
+        if node not in visited_bfs:
+            print(node)
+            visited_bfs.add(node)
+            for neighbour in graph[node]:
+                queue.append(neighbour)
+
+bfs(graph, "A")
